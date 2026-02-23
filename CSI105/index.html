@@ -1,0 +1,239 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structure Visualization</title>
+
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+body{
+    font-family: 'Roboto', sans-serif;
+    background:#eef2f7;
+    margin:0;
+    padding:0;
+    text-align:center;
+}
+
+.container{
+    width:90%;
+    margin:auto;
+    padding:20px 0;
+}
+
+h2{
+    margin-bottom:20px;
+    color:#2c3e50;
+    font-weight:700;
+}
+
+.top-box{
+    margin:15px 0;
+}
+
+input{
+    padding:8px;
+    width:220px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+button{
+    padding:6px 12px;
+    margin:4px;
+    border:1px solid #2c3e50;
+    background:#2c3e50;
+    color:white;
+    border-radius:4px;
+    cursor:pointer;
+    font-size:14px;
+}
+
+button:hover{
+    background:#34495e;
+}
+
+.section{
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    width:40%;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#34495e;
+}
+
+.result{
+    background:#f1f1f1;
+    padding:8px;
+    margin:10px 0;
+    min-height:25px;
+    font-size:14px;
+    border-radius:4px;
+}
+
+.structure{
+    border:1px dashed #bbb;
+    padding:10px;
+    min-height:80px;
+    border-radius:4px;
+    background:#fafafa;
+}
+
+/* STACK items */
+.item{
+    padding:6px;
+    margin:4px 0;
+    background:#4CAF50;
+    color:white;
+    border-radius:4px;
+    font-size:14px;
+}
+
+/* QUEUE items */
+.queue-item{
+    background:#2196F3;
+}
+</style>
+    </head>
+    <body>
+
+    <div class="container">
+        <h2>Data Structure Visualization</h2>
+
+        <div class="top-box">
+            <input type="text" id="dataInput" placeholder="Enter data">
+        </div>
+
+        <div class="section">
+
+            <!-- STACK -->
+            <div class="card">
+                <h3>STACK (LIFO)</h3>
+                <button onclick="push()">Push</button>
+                <button onclick="pop()">Pop</button>
+                <button onclick="topStack()">Top</button>
+                <button onclick="clearStack()">Clear</button>
+
+                <div class="result" id="stackResult"></div>
+                <div class="structure" id="stackDisplay"></div>
+            </div>
+
+            <!-- QUEUE -->
+            <div class="card">
+                <h3>QUEUE (FIFO)</h3>
+                <button onclick="enqueue()">Enqueue</button>
+                <button onclick="dequeue()">Dequeue</button>
+                <button onclick="frontQueue()">Front</button>
+                <button onclick="clearQueue()">Clear</button>
+
+                <div class="result" id="queueResult"></div>
+                <div class="structure" id="queueDisplay"></div>
+            </div>
+
+        </div>
+    </div>
+
+  <script>
+
+let stack = [];
+let queue = [];
+
+// ---------- STACK ----------
+
+function push(){
+    let value = document.getElementById("dataInput").value;
+    if(value === "") return;
+    stack.push(value);
+    document.getElementById("stackResult").innerText = "STACK Result: Pushed " + value;
+    displayStack();
+}
+
+function pop(){
+    if(stack.length === 0){
+        document.getElementById("stackResult").innerText = "STACK Result: Stack is Empty";
+        return;
+    }
+    let removed = stack.pop();
+    document.getElementById("stackResult").innerText = "STACK Result: Popped " + removed;
+    displayStack();
+}
+
+function topStack(){
+    if(stack.length === 0){
+        document.getElementById("stackResult").innerText = "STACK Result: Stack is Empty";
+        return;
+    }
+    document.getElementById("stackResult").innerText = "STACK Result: Top = " + stack[stack.length - 1];
+}
+
+function clearStack(){
+    stack = [];
+    document.getElementById("stackResult").innerText = "STACK Result: Stack Cleared";
+    displayStack();
+}
+
+function displayStack(){
+    let display = document.getElementById("stackDisplay");
+    display.innerHTML = "";
+    for(let i = stack.length - 1; i >= 0; i--){
+        display.innerHTML += `<div class="item">${stack[i]}</div>`;
+    }
+}
+
+// ---------- QUEUE ----------
+
+function enqueue(){
+    let value = document.getElementById("dataInput").value;
+    if(value === "") return;
+    queue.push(value);
+    document.getElementById("queueResult").innerText = "QUEUE Result: Enqueued " + value;
+    displayQueue();
+}
+
+function dequeue(){
+    if(queue.length === 0){
+        document.getElementById("queueResult").innerText = "QUEUE Result: Queue is Empty";
+        return;
+    }
+    let removed = queue.shift();
+    document.getElementById("queueResult").innerText = "QUEUE Result: Dequeued " + removed;
+    displayQueue();
+}
+
+function frontQueue(){
+    if(queue.length === 0){
+        document.getElementById("queueResult").innerText = "QUEUE Result: Queue is Empty";
+        return;
+    }
+    document.getElementById("queueResult").innerText = "QUEUE Result: Front = " + queue[0];
+}
+
+function clearQueue(){
+    queue = [];
+    document.getElementById("queueResult").innerText = "QUEUE Result: Queue Cleared";
+    displayQueue();
+}
+
+function displayQueue(){
+    let display = document.getElementById("queueDisplay");
+    display.innerHTML = "";
+    for(let i = 0; i < queue.length; i++){
+        display.innerHTML += `<div class="item queue-item">${queue[i]}</div>`;
+    }
+}
+
+</script>
+
+    </body>
+    </html>
